@@ -1,0 +1,12 @@
+{
+  "title": "{{TITLE}}",
+  "subtitle": "{{SUBTITLE}}",
+  "kind": "{{KIND}}",
+  "audience": "{{AUDIENCE}}",
+  "theme": "{{THEME}}",
+  "status": "draft",
+  "created": "{{DATE}}",
+  "presented": null,
+  "outcome": null,
+  "notes": ""
+}

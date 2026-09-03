@@ -1,0 +1,9 @@
+/* ============================================================
+   Per-deck overrides.
+   ------------------------------------------------------------
+   Anything true of THIS deck and no other lives here: a bespoke
+   diagram, a one-off layout, a colour this deck alone needs.
+
+   If something in here would help the next deck, it belongs in
+   ../_kit/css/kit.css instead. That is the whole rule.
+   ============================================================ */

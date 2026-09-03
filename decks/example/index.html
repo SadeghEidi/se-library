@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deck Kit</title>
+
+<!-- Order matters: reset, reveal, kit (structure), theme (colour).
+     The theme is last so a deck can override a token without touching
+     the kit. Swap the theme href to change the whole deck's skin. -->
+<link rel="stylesheet" href="../_kit/vendor/reset.css">
+<link rel="stylesheet" href="../_kit/vendor/reveal.css">
+<link rel="stylesheet" href="../_kit/css/kit.css">
+<link rel="stylesheet" href="../_kit/css/themes/notify-me-dark.css">
+<link rel="stylesheet" href="deck.css">
+</head>
+
+<!-- data-deck-footer and data-deck-logo are read by the runtime and
+     stamped onto every slide, so the footer can never drift out of
+     sync between slide 3 and slide 14. -->
+<body data-deck-footer="Sam Jr · 2026-09-03" data-deck-logo="">
+
+<div class="bg-aurora"></div>
+<div class="bg-grain"></div>
+
+<div class="reveal">
+  <div class="slides">
+
+  <!-- ======================================================
+       SLIDE ANATOMY, and it is the same on every content slide:
+
+         section.slide
+           header.head    eyebrow, title, one sentence
+           div.stage      the content, centred in what is left
+           p.source       optional, pinned to the last row
+
+       Do not put content directly in the section: it will not sit
+       on the frame's rows, and the slide will drift out of rhythm
+       with the rest of the deck. A slide with no stage (cover,
+       statement, divider) takes .center instead and is optically
+       centred.
+       ====================================================== */ -->
+
+  <!-- 01 · COVER
+       No page number, no footer text. One line that says what this
+       is, one that says who is saying it and when. -->
+  <section class="slide cover center" data-transition="fade">
+    <div class="rise">
+      <p class="eyebrow">Sam Jr</p>
+      <h1 class="display grad-text">Deck Kit</h1>
+      <p class="lead">Every layout in the kit, on one canvas.</p>
+      <p class="small dim mt-l">Sam Eidi &nbsp;·&nbsp; 2026-09-03</p>
+    </div>
+  </section>
+
+  <!-- 02 · AGENDA
+       Only include this if the deck runs past about 15 minutes. A
+       10-slide pitch does not need to be told to itself first. -->
+  <section class="slide">
+    <header class="head rise">
+      <p class="eyebrow">Agenda</p>
+      <h2>Where this goes</h2>
+    </header>
+    <div class="stage">
+      <div class="grid-3 stagger">
+        <div class="card">
+          <p class="card-num">01</p>
+          <h3>The problem</h3>
+          <p class="body muted">One sentence on what this section will land.</p>
+        </div>
+        <div class="card">
+          <p class="card-num">02</p>
+          <h3>What we built</h3>
+          <p class="body muted">One sentence on what this section will land.</p>
+        </div>
+        <div class="card">
+          <p class="card-num">03</p>
+          <h3>The ask</h3>
+          <p class="body muted">One sentence on what this section will land.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · SECTION DIVIDER
+       A breath between acts. Two words and a number. -->
+  <section class="slide center">
+    <div class="rise">
+      <p class="eyebrow">01</p>
+      <h1>The problem</h1>
+    </div>
+  </section>
+
+  <!-- 04 · STATEMENT
+       One sentence, nothing else on the slide. Use it for the turn
+       in the argument, the line you want quoted back. Max about 12
+       words: past that it stops being a statement. -->
+  <section class="slide center">
+    <h1 class="rise" style="max-width: 1500px;">
+      The single sentence this whole section exists to make <b>land</b>.
+    </h1>
+  </section>
+
+  <!-- 05 · ACTION TITLE + THREE CARDS
+       The workhorse. The heading is the conclusion, not the topic:
+       "Retention is where the money leaks", never "Retention".
+       Three cards, never five. -->
+  <section class="slide">
+    <header class="head rise">
+      <p class="eyebrow">Evidence</p>
+      <h2>The heading is the conclusion, not the topic</h2>
+      <p class="lead">One supporting sentence. If the slide needs two, one of them belongs on the next slide.</p>
+    </header>
+    <div class="stage">
+      <div class="grid-3 stagger">
+        <div class="card accent-1">
+          <div class="acc-bar"></div>
+          <h3>First point</h3>
+          <p class="body muted">Twenty words at most. The speaker says the rest; the slide is not the script.</p>
+        </div>
+        <div class="card accent-1">
+          <div class="acc-bar"></div>
+          <h3>Second point</h3>
+          <p class="body muted">Twenty words at most. The speaker says the rest; the slide is not the script.</p>
+        </div>
+        <div class="card accent-1">
+          <div class="acc-bar"></div>
+          <h3>Third point</h3>
+          <p class="body muted">Twenty words at most. The speaker says the rest; the slide is not the script.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · METRICS
+       data-count animates the number on arrival. Every metric
+       carries a label saying what it counts and a source line
+       saying where it came from, because a number without a
+       definition is a number the room has to take on trust. -->
+  <section class="slide">
+    <header class="head rise">
+      <p class="eyebrow">Traction</p>
+      <h2>Three numbers, each doing a different job</h2>
+    </header>
+    <div class="stage">
+      <div class="metrics stagger">
+        <div>
+          <div class="metric" data-count="1240">0</div>
+          <div class="metric-label">Merchants live</div>
+          <div class="metric-note">Up from 410 in January.</div>
+        </div>
+        <div>
+          <div class="metric" data-count="98.4" data-decimals="1" data-suffix="%">0</div>
+          <div class="metric-label">Delivery success</div>
+          <div class="metric-note">Rolling 30 days.</div>
+        </div>
+        <div>
+          <div class="metric" data-count="3.2" data-decimals="1" data-prefix="$" data-suffix="M">0</div>
+          <div class="metric-label">Recovered revenue</div>
+          <div class="metric-note">Attributed, last 12 months.</div>
+        </div>
+      </div>
+    </div>
+    <p class="source">Source: name the table, the query and the date here. Every figures slide has this line.</p>
+  </section>
+
+  <!-- 07 · CHART
+       Bars grow on arrival. The bar that carries the argument is
+       the accent; everything else is grey. A chart where every
+       series is coloured has no point of view.
+       Heights are percentages of the track, so the bars stay
+       correct at any stage height. -->
+  <section class="slide">
+    <header class="head rise">
+      <p class="eyebrow">Growth</p>
+      <h2>One bar is the point, the rest are context</h2>
+    </header>
+    <div class="stage fill">
+      <div class="chart">
+        <div class="bar-wrap">
+          <div class="bar-track">
+            <span class="bar-value">210</span>
+            <div class="bar" style="height: 17%;"></div>
+          </div>
+          <span class="bar-label">Q1</span>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-track">
+            <span class="bar-value">340</span>
+            <div class="bar" style="height: 27%;"></div>
+          </div>
+          <span class="bar-label">Q2</span>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-track">
+            <span class="bar-value">610</span>
+            <div class="bar" style="height: 49%;"></div>
+          </div>
+          <span class="bar-label">Q3</span>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-track">
+            <span class="bar-value">1240</span>
+            <div class="bar accent-1" style="height: 100%;"></div>
+          </div>
+          <span class="bar-label">Q4</span>
+        </div>
+      </div>
+    </div>
+    <p class="source">Source: name the table and the date range.</p>
+  </section>
+
+  <!-- 08 · TABLE
+       For a comparison with more than two numbers in it. No
+       vertical rules, no fills, right-aligned figures. -->
+  <section class="slide">
+    <header class="head rise">
+      <p class="eyebrow">Comparison</p>
+      <h2>What it costs against what it returns</h2>
+    </header>
+    <div class="stage">
+      <table class="t">
+        <thead>
+          <tr><th>Plan</th><th class="num">Merchants</th><th class="num">ARPU</th><th class="num">Share of revenue</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Free</td><td class="num">820</td><td class="num">$0</td><td class="num">0%</td></tr>
+          <tr><td>Growth</td><td class="num">310</td><td class="num">$49</td><td class="num">34%</td></tr>
+          <tr class="hi"><td>Scale</td><td class="num">110</td><td class="num">$249</td><td class="num">66%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">Source: name the table and the date.</p>
+  </section>
+
+  <!-- 09 · SPLIT: ARGUMENT + THE PRODUCT ITSELF
+       A real screenshot beats an illustration every time. If the
+       thing exists, show the thing. -->
+  <section class="slide full">
+    <div class="stage">
+      <div class="split split-narrow">
+        <div class="rise">
+          <p class="eyebrow">The product</p>
+          <h2>Show the real screen</h2>
+          <p class="lead">A screenshot of the actual product is the most persuasive asset available, and it is free. Stock illustration is what a deck reaches for when it has nothing to show.</p>
+        </div>
+        <div class="card rise" style="padding: 0; overflow: hidden;">
+          <!-- Replace with a real screenshot at 2x, cropped to the part
+               being talked about. Never a full desktop with browser
+               chrome and a dock in it. -->
+          <div style="aspect-ratio: 16 / 10; display: grid; place-items: center; color: var(--ink-3); font-size: 19px;">
+            assets/screenshot.png
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · QUOTE
+       A customer in their own words. Attribute fully: name, role,
+       company. An unattributed quote reads as invented. -->
+  <section class="slide center">
+    <div class="rise" style="max-width: 1400px;">
+      <h2 style="line-height: 1.15;">&ldquo;The exact sentence the customer said, unedited, including the awkward part.&rdquo;</h2>
+      <p class="lead" style="margin-left: auto; margin-right: auto;">Name, Role, Company</p>
+    </div>
+  </section>
+
+  <!-- 11 · STEPPED BUILD
+       Use reveal fragments when the order of arrival is the
+       argument. Class fade-in-up matches the kit's motion. -->
+  <section class="slide">
+    <header class="head rise">
+      <p class="eyebrow">How it works</p>
+      <h2>Build it in the order you say it</h2>
+    </header>
+    <div class="stage">
+      <div class="stack" style="max-width: 1200px;">
+        <div class="pill fragment fade-in-up"><span class="dot"></span><span>First the thing happens.</span></div>
+        <div class="pill fragment fade-in-up"><span class="dot"></span><span>Then we notice it.</span></div>
+        <div class="pill fragment fade-in-up"><span class="dot"></span><span>Then the customer hears about it.</span></div>
+        <div class="pill fragment fade-in-up"><span class="dot"></span><span>Then the money arrives.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · THE ASK
+       Last slide is never "Thank you". It is the specific thing you
+       want, in numbers, with the next step under it. -->
+  <section class="slide center">
+    <div class="rise">
+      <p class="eyebrow">The ask</p>
+      <h1>Say the specific thing you want</h1>
+      <p class="lead">The amount, the decision, the date. Then how to reach you.</p>
+      <p class="small dim mt-l">Sam Eidi &nbsp;·&nbsp; email &nbsp;·&nbsp; site</p>
+    </div>
+  </section>
+
+  </div>
+</div>
+
+<script src="../_kit/vendor/reveal.js"></script>
+<script src="../_kit/js/deck.js"></script>
+</body>
+</html>

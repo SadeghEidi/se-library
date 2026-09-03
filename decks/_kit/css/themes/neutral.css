@@ -1,0 +1,64 @@
+/* ============================================================
+   THEME · neutral
+   ------------------------------------------------------------
+   For a deck that is not Notify Me: a personal talk, a side
+   project, a proposal to someone who should not see another
+   company's brand on it. One typeface (Inter Tight) at two
+   weights, near-black ink, a single accent, nothing else.
+
+   It is deliberately plain. A neutral deck earns its look from
+   layout, restraint and real screenshots, not from decoration,
+   and the fastest way to make a non-branded deck look like a
+   free template is to reach for gradients and colour to
+   compensate.
+
+   To repoint it at someone else's brand, change --accent and the
+   two font stacks. Nothing else in the kit reads a hard colour.
+   ============================================================ */
+
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-300-normal.woff2') format('woff2'); font-weight: 300; font-display: block; }
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: block; }
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: block; }
+
+:root {
+  --font-display: 'Inter Tight', system-ui, sans-serif;
+  --font-body: 'Inter Tight', system-ui, sans-serif;
+
+  --weight-body: 400;
+  --weight-emph: 500;
+  --weight-display: 500;
+  --weight-display-emph: 500;
+
+  --bg-0: #FFFFFF;
+  --bg-1: #F7F7F8;
+  --bg-2: #EFEFF1;
+
+  --ink-0: #111113;
+  --ink-1: #2E2E33;
+  --ink-2: #56565E;
+  --ink-3: #7A7A83;
+
+  --accent: #1A1AFF;
+  --accent-2: #111113;
+  --accent-deep: #0000CC;
+  --on-accent: #FFFFFF;
+  --signal-good: #177245;
+  --signal-bad: #C0341F;
+
+  --surface: #FFFFFF;
+  --surface-2: #F7F7F8;
+  --line: #E2E2E6;
+  --line-soft: #EFEFF1;
+
+  --radius-card: 14px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 28px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.05), 0 18px 40px rgba(0, 0, 0, 0.09);
+}
+
+/* Display type is set tighter than body here, because one typeface
+   doing both jobs needs the tracking to tell them apart. */
+.reveal h1, .reveal h2, .display { letter-spacing: -0.03em; }
+
+.bg-aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: var(--bg-0); }
+.bg-grain { display: none; }
+.grad-text { color: var(--ink-0); }

@@ -1,0 +1,77 @@
+/* ============================================================
+   THEME · Notify Me!  light
+   ------------------------------------------------------------
+   The default. Use it for anything that will be sent rather than
+   only shown: an investor deck, a partner proposal, a board
+   review, a customer QBR. It prints honestly, reads on a phone,
+   and survives a projector with a washed-out lamp, which a dark
+   deck does not.
+
+   Ground is --web-white #FEFEFC rather than pure white: the site
+   uses it for exactly this reason, it takes the clinical edge off
+   a full-screen white field. Primary is --blue #003BAF straight
+   from the site design system, and it is the only saturated
+   colour on a normal slide.
+   ============================================================ */
+
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Light.otf') format('opentype');   font-weight: 300; font-display: block; }
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Regular.otf') format('opentype'); font-weight: 400; font-display: block; }
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Bold.otf') format('opentype');    font-weight: 700; font-display: block; }
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Black.otf') format('opentype');   font-weight: 900; font-display: block; }
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-300-normal.woff2') format('woff2'); font-weight: 300; font-display: block; }
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: block; }
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: block; }
+
+:root {
+  --font-display: 'TT Drugs', system-ui, sans-serif;
+  --font-body: 'Inter Tight', system-ui, sans-serif;
+
+  /* On a light ground, 300 body weight goes thin and grey at a
+     distance. Light decks run body at 400 and emphasis at 500. */
+  --weight-body: 400;
+  --weight-emph: 500;
+  --weight-display: 400;
+  --weight-display-emph: 700;
+
+  --bg-0: #FEFEFC;
+  --bg-1: #F4F6FA;
+  --bg-2: #EEF3F6;
+
+  --ink-0: #12111C;   /* 16.1:1 on the ground */
+  --ink-1: #2C3140;   /* 11.4:1 */
+  --ink-2: #555A65;   /*  7.3:1, the lightest that may carry a sentence */
+  --ink-3: #767B87;   /*  4.6:1, labels and captions only, never prose */
+
+  --accent: #003BAF;
+  --accent-2: #9B26F0;
+  --accent-deep: #00227A;
+  --on-accent: #FFFFFF;
+  --signal-good: #177245;
+  --signal-bad: #C0341F;
+
+  --surface: #FFFFFF;
+  --surface-2: #F4F6FA;
+  --line: #DCE0E8;
+  --line-soft: #EAEDF3;
+
+  --radius-card: 18px;
+  --shadow-card: 0 1px 2px rgba(18, 17, 28, 0.04), 0 12px 32px rgba(18, 17, 28, 0.06);
+  --shadow-hover: 0 2px 4px rgba(18, 17, 28, 0.05), 0 20px 44px rgba(18, 17, 28, 0.10);
+}
+
+/* Barely-there warmth so the page is not a flat sheet. Far quieter
+   than the dark theme's aurora, because on white any gradient with
+   real saturation reads as a template. */
+.bg-aurora {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 88% 4%, rgba(0, 59, 175, 0.045), transparent 70%),
+    radial-gradient(50% 45% at 4% 96%, rgba(0, 59, 175, 0.035), transparent 70%),
+    var(--bg-0);
+}
+.bg-grain { display: none; }
+
+.grad-text {
+  background: linear-gradient(180deg, #12111C 0%, #3F4B6B 130%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}

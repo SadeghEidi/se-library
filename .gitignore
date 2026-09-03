@@ -1,0 +1,5 @@
+# Per-slide review captures. Regenerable with `bin/deck.sh shots <slug>`, and a
+# dozen 1920x1080 PNGs per deck is not something to carry in git. The PDF and
+# the cover stay: the PDF is what gets sent, and a listing reads the cover.
+decks/*/dist/shots/
+.DS_Store

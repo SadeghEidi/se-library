@@ -1,0 +1,464 @@
+/* ============================================================
+   DECK KIT  ·  the structure layer
+   ------------------------------------------------------------
+   This file knows about LAYOUT and MOTION. It knows nothing about
+   colour, typeface or brand: those come from a theme file loaded
+   after it (css/themes/*.css), which only sets custom properties.
+
+   Every measurement below is expressed against a fixed 1920x1080
+   canvas. reveal.js scales that canvas to whatever screen it lands
+   on, so a slide that is right here is right on a 13" laptop, a
+   4K monitor and a boardroom projector without a second pass.
+
+   Grid: 12 columns, 120px outer margin, 32px gutter.
+   Safe area: nothing meaningful within 96px of top/bottom or 120px
+   of either side. Projectors crop, and so does Zoom's toolbar.
+   ============================================================ */
+
+:root {
+  /* --- canvas + grid ------------------------------------- */
+  --w: 1920px;
+  --h: 1080px;
+  --pad-x: 120px;
+  --pad-y: 96px;
+  --gutter: 32px;
+
+  /* --- type scale (major third, 1.25, on a 1920 canvas) ---
+     Sized for the two jobs a deck slide has to do at once:
+     readable from the back of a room, and readable on a phone
+     when the PDF is forwarded. Nothing below 18px, ever. */
+  --fs-display: 132px;   /* cover title only */
+  --fs-h1: 96px;         /* statement slide */
+  --fs-h2: 68px;         /* the action title on a normal slide */
+  --fs-h3: 36px;         /* card and column headings */
+  --fs-lead: 28px;       /* the one supporting sentence */
+  --fs-body: 24px;       /* card copy */
+  --fs-small: 19px;      /* captions, sources, axis labels */
+  --fs-label: 16px;      /* eyebrows, metric labels, footer */
+  --fs-metric: 112px;    /* the big number */
+
+  /* --- motion -------------------------------------------
+     Two durations and one easing curve. More than that and the
+     deck stops feeling like one object. The curve is a decelerate
+     (fast out, slow in): it reads as something arriving under its
+     own weight rather than being animated at you. */
+  --dur-fast: 180ms;
+  --dur: 420ms;
+  --dur-slow: 700ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --stagger: 70ms;
+}
+
+/* ---------- base ---------------------------------------- */
+html, body { background: var(--bg-0); }
+.reveal {
+  font-family: var(--font-body);
+  color: var(--ink-1);
+  font-weight: var(--weight-body, 300);
+  --emph: var(--weight-emph, 500);
+}
+.reveal b, .reveal strong { font-weight: var(--emph); color: var(--ink-0); }
+.reveal .slides { text-align: left; }
+.reveal .slides section { height: 100%; }
+.reveal ::selection { background: var(--accent); color: var(--on-accent, #fff); }
+.reveal a { color: var(--accent); text-decoration: none; }
+
+/* ============================================================
+   THE SLIDE FRAME
+   ------------------------------------------------------------
+   Every content slide is three rows: a head that starts at a
+   fixed height from the top, a stage that takes all the space
+   that is left, and an optional source line pinned under it.
+
+       ┌──────────────────────────────┐
+       │ eyebrow / title / lead  head │  auto
+       │                              │  ← 56px
+       │ the content            stage │  1fr
+       │                              │
+       │ source                       │  auto
+       └──────────────────────────────┘
+
+   This is the single change that most improves a deck built by
+   hand. Centring the whole block vertically (the obvious first
+   instinct, and what this kit did until 2026-09-03) means the
+   title sits at a different height on every slide depending on
+   how much content is under it, and the leftover space collects
+   in one dead band at the bottom. A fixed head and an expanding
+   stage give every slide the same rhythm, so flipping through
+   the deck feels like one object rather than twelve arrangements.
+   ============================================================ */
+.reveal .slides section.slide {
+  position: absolute !important;
+  top: 0 !important; left: 0 !important;
+  width: 100% !important; height: 100% !important;
+  min-height: var(--h);
+  padding: var(--pad-y) var(--pad-x) 140px;   /* room for the footer */
+  box-sizing: border-box;
+  display: grid !important;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 64px;
+  align-content: start;
+}
+
+/* A slide with no stage (a statement, a divider, the cover) is
+   optically centred instead. Optically, not mathematically: the
+   eye reads a block sitting at exactly 50% as slightly low, so
+   the content sits a touch above centre. */
+.reveal .slides section.slide.center {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* Optical, not mathematical: a block centred at exactly 50% reads
+     as slightly low, so it sits a little above. 200px was tried first
+     and pushed the ask slide into the top third. */
+  padding-bottom: 90px;
+}
+.reveal .slides section.slide.bleed { padding: 0; display: block !important; }
+
+.slide > .head { display: block; }
+
+/* The stage holds its content at its natural height and centres it in
+   whatever room is left under the head. Two wrong versions were tried
+   first, both on 2026-09-03, and the reasons are worth keeping:
+
+     stretch every child to fill      a row of three cards with two
+                                      lines of copy each became 500px
+                                      tall with a dead lower half
+     pin content to the top           left the whole lower third of
+                                      every short slide empty
+
+   Centring in the leftover space keeps the title at a fixed height
+   (which is what gives the deck its rhythm) while the content sits in
+   the optical middle of the space it has. A row of cards still ends up
+   equal height, because that comes from the grid, not from the stage.
+   Charts and tables that genuinely want the whole area take .fill. */
+.slide > .stage { min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+.slide > .stage > * { flex: 0 0 auto; }
+.slide > .stage.fill { justify-content: stretch; }
+.slide > .stage.fill > * { flex: 1; min-height: 0; }
+.slide > .stage.top { justify-content: flex-start; }
+
+/* A slide whose content IS the layout (a split, a full-bleed diagram)
+   drops the head row and gives the stage the whole frame. */
+.reveal .slides section.slide.full { grid-template-rows: 1fr; }
+
+/* ---------- headings ------------------------------------- */
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: var(--font-display);
+  color: var(--ink-0);
+  text-transform: none;
+  margin: 0;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  --emph: var(--weight-display-emph, 700);
+}
+.reveal h1 { font-size: var(--fs-h1); font-weight: var(--weight-display, 400); }
+.reveal h2 { font-size: var(--fs-h2); font-weight: var(--weight-display, 400); max-width: 1500px; }
+.reveal h3 { font-size: var(--fs-h3); font-weight: var(--weight-display, 400); }
+.display { font-size: var(--fs-display) !important; line-height: 0.98; letter-spacing: -0.03em; }
+
+/* The one supporting sentence under an action title.
+   Capped at 900px so it breaks into 2 to 3 lines, never a slab. */
+.lead {
+  font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  line-height: 1.45;
+  color: var(--ink-2);
+  font-weight: var(--weight-body, 300);
+  max-width: 900px;
+  margin: 24px 0 0;
+}
+.center .lead { margin-left: auto; margin-right: auto; }
+.body { font-size: var(--fs-body); line-height: 1.5; color: var(--ink-1); margin: 0; }
+.muted { color: var(--ink-2); }
+.dim { color: var(--ink-3); }
+.small { font-size: var(--fs-small); line-height: 1.45; }
+
+/* Source line. Every number on a slide carries one: it is what
+   turns a claim into something the room can check. It sits in the
+   frame's last row, so it is at the same height on every slide
+   that has one. */
+.source {
+  font-size: var(--fs-small);
+  color: var(--ink-3);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- eyebrow -------------------------------------- */
+.eyebrow {
+  font-size: var(--fs-label);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: currentColor; opacity: 0.8; }
+.center .eyebrow { justify-content: center; }
+
+/* ---------- surfaces ------------------------------------- */
+/* A minimum height so a row of three short cards still has presence
+   on a 1080 canvas. Without it the row renders as three 100px strips
+   floating in the middle of the frame, which is the main reason a
+   hand-built deck reads as sparse rather than confident. */
+.card {
+  min-height: 300px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card, 22px);
+  box-shadow: var(--shadow-card);
+  padding: 48px;
+  box-sizing: border-box;
+  /* Column, so a card's copy sits under its title and the card
+     fills whatever height the row gives it rather than the row
+     collapsing to the shortest card's text. */
+  display: flex;
+  flex-direction: column;
+}
+.card .body { margin-top: 16px; }
+/* Pushes a card's last element to the bottom edge, which is how a
+   row of cards with unequal copy still lines up its footers. */
+.card .foot-of-card { margin-top: auto; padding-top: 24px; }
+.card.glass {
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+}
+.card-num {
+  font-size: var(--fs-label); letter-spacing: 0.18em; color: var(--accent);
+  font-weight: 500; margin: 0 0 20px;
+}
+.pill {
+  display: flex; align-items: center; gap: 20px;
+  padding: 30px 40px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 14px; font-size: var(--fs-lead); color: var(--ink-1);
+  box-sizing: border-box;
+}
+.pill .dot {
+  width: 10px; height: 10px; border-radius: 50%; flex: none;
+  background: var(--accent); box-shadow: 0 0 12px var(--accent);
+}
+.acc-bar {
+  height: 3px; width: 48px; border-radius: 2px;
+  background: var(--ac, var(--accent));
+  box-shadow: 0 0 14px var(--ac, var(--accent));
+  margin-bottom: 28px;
+  flex: none;
+}
+
+/* ---------- layout helpers ------------------------------- */
+.row { display: flex; gap: var(--gutter); }
+.col { display: flex; flex-direction: column; }
+.grid-2, .grid-3, .grid-4 { display: grid; align-items: stretch; gap: var(--gutter); }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.split-wide { grid-template-columns: 5fr 7fr; }
+.split-narrow { grid-template-columns: 6fr 6fr; }
+.stack { display: flex; flex-direction: column; gap: 20px; justify-content: center; max-width: 1400px; }
+.between { justify-content: space-between; }
+.center-x { align-items: center; }
+.mt-s { margin-top: 14px; } .mt-m { margin-top: 28px; } .mt-l { margin-top: 48px; }
+.accent-1 { --ac: var(--accent); }
+.accent-2 { --ac: var(--accent-2); }
+.accent-good { --ac: var(--signal-good); }
+.accent-bad { --ac: var(--signal-bad); }
+
+/* ---------- metrics -------------------------------------- */
+/* Tabular numerals are not optional: without them a counting
+   number jitters horizontally as digits change width, which is
+   the single tell that separates a cheap count-up from a good one. */
+.metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); align-items: end; }
+.metric {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ink-0);
+  line-height: 0.95;
+  font-size: var(--fs-metric);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.metric .unit { font-size: 0.38em; color: var(--ink-2); font-weight: 400; margin-left: 4px; }
+.metric-label {
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 500;
+  margin-top: 24px;
+}
+.metric-note { font-size: var(--fs-small); color: var(--ink-3); margin-top: 10px; }
+/* A hairline over each metric ties the row together and gives the
+   numbers a shared baseline to hang from. */
+.metrics > div { border-top: 1px solid var(--line); padding-top: 40px; }
+
+/* ---------- table ---------------------------------------- */
+/* No vertical rules, no zebra fill, no boxed cells. A horizontal
+   hairline under the header and nothing else: the whitespace does
+   the aligning, which is what makes a table read as considered. */
+.reveal table.t {
+  width: 100%; max-width: 1500px; border-collapse: collapse; font-size: var(--fs-lead);
+  font-variant-numeric: tabular-nums;
+}
+.reveal table.t th {
+  text-align: left; font-size: var(--fs-label); letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-3); font-weight: 500;
+  padding: 0 24px 20px 0; border-bottom: 1px solid var(--line);
+}
+.reveal table.t td { padding: 28px 24px 28px 0; border-bottom: 1px solid var(--line-soft); color: var(--ink-1); }
+.reveal table.t td.num, .reveal table.t th.num { text-align: right; padding-right: 0; }
+.reveal table.t tr.hi td { color: var(--ink-0); font-weight: var(--emph); }
+
+/* ---------- chart ---------------------------------------- */
+/* Deliberately thin: bars, and a stacked bar, cover what a pitch
+   slide should ever show. Anything needing more chart than this is
+   an appendix table, not a slide.
+   The wrapper is a grid so every column is the same width and every
+   bar hangs off the same baseline, which a flex row with per-bar
+   heights does not guarantee. */
+.chart {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  gap: 56px; align-items: end; height: 100%; max-width: 1400px;
+}
+.chart .bar-wrap { display: grid; grid-template-rows: 1fr auto; gap: 18px; height: 100%; }
+/* The value label lives INSIDE the track, stacked directly on top of
+   its own bar, so it travels with the bar's height. Put it in its own
+   grid row instead and every label lines up along the top of the
+   chart, stranded above the short bars. */
+.chart .bar-track { display: flex; flex-direction: column; justify-content: flex-end; height: 100%; gap: 14px; }
+/* Capped so a four-bar chart does not become four slabs. Wide bars
+   read as a block diagram; a bar wants to be narrower than the space
+   between the bars is tall. */
+.chart .bar {
+  width: 100%; max-width: 200px; margin: 0 auto;
+  border-radius: 10px 10px 2px 2px;
+  background: var(--line);
+  transform-origin: bottom;
+  transform: scaleY(0);
+  transition: transform var(--dur-slow) var(--ease);
+}
+.chart .bar.accent-1 {
+  background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 45%, transparent));
+}
+.slide.present .chart .bar { transform: scaleY(1); }
+.chart .bar-value {
+  font-family: var(--font-display); font-size: 40px; color: var(--ink-0);
+  font-variant-numeric: tabular-nums; text-align: center;
+}
+.chart .bar-label {
+  font-size: var(--fs-label); letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-3); text-align: center; font-weight: 500;
+}
+
+/* ---------- footer chrome -------------------------------- */
+.foot {
+  position: absolute; left: var(--pad-x); bottom: 60px;
+  display: flex; align-items: center; gap: 16px; z-index: 5;
+}
+.foot img { height: 26px; opacity: 0.9; }
+.foot .sep { width: 1px; height: 16px; background: var(--line); }
+.foot .pg { font-size: 14px; color: var(--ink-3); letter-spacing: 0.14em; font-variant-numeric: tabular-nums; }
+.foot-r {
+  position: absolute; right: var(--pad-x); bottom: 60px;
+  font-size: 14px; color: var(--ink-3); letter-spacing: 0.22em;
+  text-transform: uppercase; z-index: 5; font-variant-numeric: tabular-nums;
+}
+/* The cover and any full-bleed slide carry no page furniture. */
+.slide.cover .foot, .slide.cover .foot-r, .slide.bleed .foot, .slide.bleed .foot-r { display: none; }
+
+/* Thin progress rule along the very bottom of the frame.
+   The room reads it without noticing it, which is the point.
+   Hidden in QA and print, where a bar frozen at an arbitrary width
+   just looks like a stray element in the capture. */
+.deck-progress {
+  position: fixed; left: 0; bottom: 0; height: 2px; z-index: 40;
+  background: var(--accent); width: 0;
+  transition: width var(--dur) var(--ease);
+  box-shadow: 0 0 12px var(--accent);
+}
+html.qa .deck-progress { display: none; }
+
+/* ============================================================
+   MOTION
+   ------------------------------------------------------------
+   Three mechanisms, no more:
+     1. every slide's content rises 18px into place on arrival
+     2. .stagger children arrive in sequence, 70ms apart
+     3. reveal's own .fragment for anything the speaker steps through
+   Nothing spins, bounces, flies in from the side, or crosses the
+   slide. Motion here exists to direct the eye to what arrived, and
+   an audience that notices the transition has been distracted from
+   the argument.
+   ============================================================ */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+.slide.present .rise { animation: riseIn var(--dur) var(--ease) both; }
+.slide.present .stagger > * { animation: riseIn var(--dur) var(--ease) both; }
+.slide.present .stagger > *:nth-child(1) { animation-delay: calc(var(--stagger) * 0); }
+.slide.present .stagger > *:nth-child(2) { animation-delay: calc(var(--stagger) * 1); }
+.slide.present .stagger > *:nth-child(3) { animation-delay: calc(var(--stagger) * 2); }
+.slide.present .stagger > *:nth-child(4) { animation-delay: calc(var(--stagger) * 3); }
+.slide.present .stagger > *:nth-child(5) { animation-delay: calc(var(--stagger) * 4); }
+.slide.present .stagger > *:nth-child(6) { animation-delay: calc(var(--stagger) * 5); }
+.slide.present .stagger > *:nth-child(7) { animation-delay: calc(var(--stagger) * 6); }
+.slide.present .stagger > *:nth-child(8) { animation-delay: calc(var(--stagger) * 7); }
+
+/* reveal's stepped fragments, restyled to match the rise. */
+.reveal .slides section .fragment.fade-in-up { transform: translateY(18px); opacity: 0; transition: all var(--dur) var(--ease); }
+.reveal .slides section .fragment.fade-in-up.visible { transform: none; opacity: 1; }
+
+/* Hover affordance on anything clickable in a walkthrough. */
+.hoverable { transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
+.hoverable:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover, var(--shadow-card)); }
+
+/* Anyone who has asked their OS to stop animating things means it. */
+@media (prefers-reduced-motion: reduce) {
+  .slide.present .rise,
+  .slide.present .stagger > * { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .chart .bar { transition: none !important; transform: scaleY(1) !important; }
+  .deck-progress { transition: none !important; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* ============================================================
+   PRINT
+   ------------------------------------------------------------
+   The shipped PDF is assembled from per-slide captures by
+   bin/deck.sh, not from the browser's print pipeline (reveal 5
+   will not paginate this layout, measured 2026-09-03). This block
+   only keeps a manual Ctrl-P from looking broken.
+   ============================================================ */
+@page { size: 1920px 1080px; margin: 0; }
+
+@media print {
+  .deck-progress { display: none !important; }
+  .reveal .slides section.slide > *,
+  .slide .rise, .slide .stagger > * { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .chart .bar { transform: scaleY(1) !important; transition: none !important; }
+  .reveal .fragment { opacity: 1 !important; visibility: visible !important; transform: none !important; }
+  html.print-pdf.reveal-viewport { overflow: visible !important; height: auto !important; }
+  html.print-pdf .reveal { overflow: visible !important; height: auto !important; background: var(--bg-0); }
+  html.print-pdf .reveal .slides {
+    position: static !important; transform: none !important; zoom: 1 !important;
+    width: var(--w) !important; height: auto !important;
+    left: 0 !important; top: 0 !important; margin: 0 !important; padding: 0 !important;
+    display: block !important; perspective: none !important;
+  }
+  html.print-pdf .reveal .slides section.slide {
+    position: relative !important;
+    width: var(--w) !important; height: var(--h) !important;
+    margin: 0 !important; opacity: 1 !important; visibility: visible !important;
+    transform: none !important; page-break-after: always !important; break-after: page !important;
+    overflow: hidden !important;
+  }
+}

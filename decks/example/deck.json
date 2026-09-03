@@ -1,0 +1,14 @@
+{
+  "title": "Deck Kit",
+  "subtitle": "Every layout in the kit, on one canvas.",
+  "kind": "reference",
+  "audience": "reference",
+  "theme": "notify-me-dark",
+  "status": "final",
+  "created": "2026-09-03",
+  "presented": null,
+  "outcome": null,
+  "notes": "The worked example. Every layout, with a comment in the source saying when to use it. Copy from here rather than inventing markup.",
+  "slides": 12,
+  "built": "2026-09-03T16:54:31+00:00"
+}

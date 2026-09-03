@@ -1,0 +1,101 @@
+/* ============================================================
+   THEME · Notify Me!  dark
+   ------------------------------------------------------------
+   The keynote theme. Use it for a stage, a partner day, a launch,
+   anything presented in a controlled room where you own the
+   projector. Do not use it for a deck that will mostly be read as
+   a PDF on a laptop: a full-bleed near-black page prints as a
+   heavy slab and is unreadable on a phone in daylight. That is
+   what notify-me-light.css is for.
+
+   Colour comes from the Notify Me site design system
+   (~/projects/notify-me/nm-website/DESIGN-SYSTEM.md): --blue
+   #003BAF is the brand primary, and #2D6BFF / #4C87FF are the
+   bright cuts that survive on a dark ground. Type is TT Drugs for
+   display and Inter Tight for everything else, which is the
+   two-family rule the brand already follows.
+   ============================================================ */
+
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Thin.otf') format('opentype');    font-weight: 100; font-display: block; }
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Light.otf') format('opentype');   font-weight: 300; font-display: block; }
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Regular.otf') format('opentype'); font-weight: 400; font-display: block; }
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Bold.otf') format('opentype');    font-weight: 700; font-display: block; }
+@font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Black.otf') format('opentype');   font-weight: 900; font-display: block; }
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-300-normal.woff2') format('woff2'); font-weight: 300; font-display: block; }
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: block; }
+@font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: block; }
+
+:root {
+  --font-display: 'TT Drugs', system-ui, sans-serif;
+  --font-body: 'Inter Tight', system-ui, sans-serif;
+
+  /* TT Drugs ships no 500 face. Asking for 500 in display type
+     silently matches Regular and the emphasis disappears, so
+     display emphasis is 700 and body emphasis is 500. */
+  --weight-body: 300;
+  --weight-emph: 500;
+  --weight-display: 400;
+  --weight-display-emph: 700;
+
+  --bg-0: #05070D;
+  --bg-1: #0A1020;
+  --bg-2: #0E1A33;
+
+  --ink-0: #FFFFFF;
+  --ink-1: #C9D2E0;
+  --ink-2: #8B94A8;
+  --ink-3: #5A6377;
+
+  --accent: #4C87FF;
+  --accent-2: #9B26F0;
+  --accent-deep: #003BAF;
+  --on-accent: #FFFFFF;
+  --signal-good: #5FD0A6;
+  --signal-bad: #EE442E;
+
+  --surface: rgba(255, 255, 255, 0.055);
+  --surface-2: rgba(255, 255, 255, 0.07);
+  --line: rgba(255, 255, 255, 0.12);
+  --line-soft: rgba(255, 255, 255, 0.06);
+
+  --radius-card: 22px;
+  --shadow-card: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  --shadow-hover: 0 32px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.card { backdrop-filter: blur(18px) saturate(120%); -webkit-backdrop-filter: blur(18px) saturate(120%); }
+
+/* The ground: a deep vertical gradient, one soft glow low and
+   centred, and a grain overlay. Together they stop a dark deck
+   reading as a flat black rectangle, which is what makes most dark
+   decks look cheap.
+
+   It is STATIC, and that is deliberate. Until 2026-09-03 this was
+   a large drifting glow on a 22s loop, and it was the single worst
+   thing about the deck: because the layer is fixed rather than
+   per-slide, every slide caught the animation at a different phase,
+   so the background brightness and the position of the blue bloom
+   changed from slide to slide. Flipping through the deck read as
+   twelve different backgrounds instead of one. A moving background
+   also competes with the content's own entrance motion, which is
+   the only motion that should be drawing the eye.
+
+   Keep any future ambient layer static, low-contrast, and anchored
+   to the frame rather than the viewport. */
+.bg-aurora {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  background:
+    radial-gradient(80% 55% at 50% 108%, rgba(45, 107, 255, 0.22), transparent 68%),
+    radial-gradient(55% 45% at 88% -8%, rgba(0, 59, 175, 0.16), transparent 70%),
+    linear-gradient(180deg, #070A14 0%, #060912 55%, #04060C 100%);
+}
+.bg-grain {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.4; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+}
+
+.grad-text {
+  background: linear-gradient(180deg, #fff 0%, #9fb0cf 130%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
