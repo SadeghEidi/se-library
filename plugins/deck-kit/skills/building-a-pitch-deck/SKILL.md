@@ -48,7 +48,7 @@ laptop, and `neutral` for anything that is not Notify Me. Kinds: investor,
 sales, partner, board, internal, conference.
 
 **3. Build the slides.** Edit `decks/<slug>/index.html`. Every layout you need
-is already in `decks/example/index.html` with a comment saying when
+is already in `${CLAUDE_PLUGIN_ROOT}/example/index.html` with a comment saying when
 to use it, so copy from there rather than inventing markup. The rules that
 matter are in `references/slide-craft.md` and `references/visual-system.md`.
 Anything true of only this deck goes in its own `deck.css`; anything reusable
@@ -137,7 +137,7 @@ theme in this kit is derived from it. Read it before a stage deck.
 | Thing | Path |
 |---|---|
 | The kit (CSS, runtime, fonts, template) | `${CLAUDE_PLUGIN_ROOT}/kit/` |
-| Every layout, worked, with comments | `decks/example/index.html` |
+| Every layout, worked, with comments | `${CLAUDE_PLUGIN_ROOT}/example/index.html` |
 | One deck | `decks/<slug>/` |
 | Built PDF, cover, per-slide PNGs | `decks/<slug>/dist/` |
 | The tool | `${CLAUDE_PLUGIN_ROOT}/bin/deck.sh` |

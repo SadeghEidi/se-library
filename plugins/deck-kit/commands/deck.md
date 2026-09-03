@@ -8,7 +8,8 @@ craft rules, the visual system, and the checklist to run before anything is
 sent.
 
 The tool is `${CLAUDE_PLUGIN_ROOT}/bin/deck.sh`. Decks land in `./decks/` in
-whatever project is open.
+whatever project is open, and the first one there copies the engine in beside
+them so the deck keeps working if this plugin is later updated or removed.
 
 $ARGUMENTS
 
