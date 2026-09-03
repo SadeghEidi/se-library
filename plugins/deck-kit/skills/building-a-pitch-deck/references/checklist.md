@@ -35,4 +35,4 @@ Run `bin/deck.sh shots <slug>` and read the images. Not the source.
 - [ ] The cover has no page number and no footer clutter
 - [ ] It reads on a phone: open `dist/<slug>.pdf` and look at it small
 - [ ] `deck.json` has the real status, and `presented` and `outcome` once it is
-- [ ] The Workbench page does not say "edited since build"
+- [ ] The PDF is newer than the slides, so nobody sends last week's build

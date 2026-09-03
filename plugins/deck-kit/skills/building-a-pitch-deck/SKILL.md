@@ -5,18 +5,17 @@ description: "Build, review or rebuild a pitch deck, keynote, investor, sales, p
 
 # Building a pitch deck
 
-Sam's decks are built as code, in this repo, from one kit. Not in Google
+Decks are built as code, in the repository they belong to, from one kit. Not in Google
 Slides, not in Gamma, not as a one-off HTML file that never gets found again.
 
 The kit and the tool both travel with this plugin. Run the tool as
 `${CLAUDE_PLUGIN_ROOT}/bin/deck.sh`, from whatever project the deck belongs
-to; decks land in `./decks/` there. On Sam's own machine they also surface
-on the Decks page in Sam Workbench.
+to; decks land in `./decks/` there.
 
 ## Before anything: is a deck the right artifact
 
 A deck is for a room, live, with a speaker. If the thing will be read alone
-with nobody talking, it is a document, and Sam's document shape is the
+with nobody talking, it is a document, and the shape that serves it is the
 one-pager with subpages. Decks that are secretly
 documents are the most common failure, and they read as dense, wordy and dull
 because they are being asked to do a job they are the wrong tool for.
@@ -32,20 +31,20 @@ Write the deck as a list of action titles first, in a scratch file. An action
 title is the conclusion of the slide, not its topic: "Retention is where the
 money leaks", never "Retention". If the titles alone, read in order, do not
 make the argument, the deck will not either, and no amount of design fixes it.
-Show Sam the title list and get it agreed before building. This is the step
+Show whoever owns the deck the title list and get it agreed before building. This is the step
 that saves the most time and gets skipped the most.
 
 **2. Scaffold.**
 
 ```bash
 deck.sh new <slug> --kind investor \
-  --title "Title" --subtitle "One line" --presenter "Sam Eidi"
+  --title "Title" --subtitle "One line" --presenter "Your Name"
 ```
 
-Themes: **`notify-me-dark` is the default**, at Sam's instruction 2026-09-03.
-`notify-me-light` is there for a deck that will mostly be read as a PDF on a
-laptop, and `neutral` for anything that is not Notify Me. Kinds: investor,
-sales, partner, board, internal, conference.
+Themes: **`midnight` is the default.**
+`daylight` is there for a deck that will mostly be read as a PDF on a laptop,
+and `neutral` for anything carrying no brand at all. Kinds: investor, sales,
+partner, board, internal, conference.
 
 **3. Build the slides.** Edit `decks/<slug>/index.html`. Every layout you need
 is already in `${CLAUDE_PLUGIN_ROOT}/example/index.html` with a comment saying when
@@ -73,7 +72,7 @@ deck.sh build <slug>     # PDF + cover, updates deck.json
 Then set `status` in `decks/<slug>/deck.json` (`draft`, `review`, `final`,
 `presented`) and, after it is delivered, fill in `presented` and `outcome`.
 That record is the point of the registry: next time, the question "what did we
-send Nosto and how did it land" has an answer.
+send them last time and how did it land" has an answer.
 
 **6. Hand it over.** Send the deck itself, or the PDF in `dist/`. Never a
 gallery of screenshots of it: show the thing, in the place it lives.
@@ -102,8 +101,8 @@ These are the ones that separate a deck from a template. The full spec is in
    actual person, the actual chart. Stock illustration and generated imagery
    are what a deck reaches for when it has nothing to show, and every audience
    can tell.
-5. **Every number carries its source and its definition.** Sam's standing rule
-   for findings applies on a slide too: the figure, what it counts, and where
+5. **Every number carries its source and its definition.** The rule that
+   applies to any finding applies on a slide too: the figure, what it counts, and where
    it came from, on the slide, in the `.source` line.
 
 ## Motion
@@ -122,15 +121,14 @@ the argument, and for nothing else. Never to hide a bullet list from the room.
 
 ## Brand
 
-For Notify Me, colour and type come from the website's design system
-(`nm-website/DESIGN-SYSTEM.md`, internal), already encoded in the two
-`notify-me-*` themes. Do not sample new colours off a screenshot. If a deck
-seems to need a colour the system does not have, that is a question for Sam,
-not a decision to make in a stylesheet.
+`midnight` and `daylight` carry a real product's palette and type. Point them
+at your own by editing the two theme files, and take the values from your
+design system rather than sampling them off a screenshot. If a deck
+seems to need a colour the system does not have, that is a question for
+whoever owns the brand, not a decision to make in a stylesheet.
 
-The strongest existing reference is the Nosto 2026 keynote in the website
-repository under `public/nosto2026-presentation/`. The dark
-theme in this kit is derived from it. Read it before a stage deck.
+The midnight theme is derived from a keynote built the same way, for a stage,
+which is why it is the heavier of the two.
 
 ## What lives where
 

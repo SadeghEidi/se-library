@@ -1,7 +1,8 @@
 # SE Library
 
-Sam Eidi's Claude Code plugins: tools and judgement used on real work, packaged
-so a colleague can install them in two commands.
+Claude Code plugins by [Sam Eidi](https://github.com/SadeghEidi): tools and
+judgement used on real work, packaged so anyone can install them in two
+commands.
 
 ```
 /plugin marketplace add SadeghEidi/se-library
@@ -34,18 +35,19 @@ it, and that failure is quiet.
 
 ## Where these come from
 
-Most of these are developed somewhere else and published here rather than
-edited here, because the working copy is the one that gets used every day and a
-second editable copy always drifts. deck-kit is assembled from Sam's OpenClaw
-workspace by `bin/deck-kit-publish.sh --push` there; its own publish step only
-ever rewrites its own directory and its own line in the catalog, so the rest of
-the library is safe. If a plugin here has a source elsewhere, its README says
-so. Send changes as a pull request, or say something, rather than editing the
-published copy and hoping.
+These are developed in the working repositories where they get used every day,
+and published here rather than edited here: a second editable copy always
+drifts from the one doing the work. Each plugin's publish step rewrites only
+its own directory and its own line in the catalog, so the rest of the library
+is never touched by a sync.
 
-## Private, and why
+Issues and pull requests are welcome. If you change a published copy directly
+it will be overwritten by the next sync, so open a PR and it gets folded into
+the source.
 
-This repository carries commercial TT Drugs font files, licensed to Notify Me.
-Internal use is covered; publishing them is redistribution and is not. See
-[plugins/deck-kit/FONTS.md](plugins/deck-kit/FONTS.md) before making this
-public.
+## Licensing
+
+The code is MIT; see [LICENSE](LICENSE). Bundled third-party material keeps its
+own terms, and one of the fonts in deck-kit is commercial rather than open:
+read [plugins/deck-kit/NOTICE.md](plugins/deck-kit/NOTICE.md) before using the
+branded themes commercially.

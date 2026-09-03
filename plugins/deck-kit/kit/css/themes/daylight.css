@@ -1,5 +1,5 @@
 /* ============================================================
-   THEME · Notify Me!  light
+   THEME · daylight
    ------------------------------------------------------------
    The default. Use it for anything that will be sent rather than
    only shown: an investor deck, a partner proposal, a board
@@ -7,11 +7,9 @@
    and survives a projector with a washed-out lamp, which a dark
    deck does not.
 
-   Ground is --web-white #FEFEFC rather than pure white: the site
-   uses it for exactly this reason, it takes the clinical edge off
-   a full-screen white field. Primary is --blue #003BAF straight
-   from the site design system, and it is the only saturated
-   colour on a normal slide.
+   Ground is #FEFEFC rather than pure white, which takes the
+   clinical edge off a full-screen white field. #003BAF is the
+   primary and the only saturated colour on a normal slide.
    ============================================================ */
 
 @font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Light.otf') format('opentype');   font-weight: 300; font-display: block; }

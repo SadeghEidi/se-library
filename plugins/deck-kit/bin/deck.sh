@@ -2,7 +2,7 @@
 # ============================================================
 # deck.sh — the deck registry's only moving part.
 #
-#   deck.sh new <slug> [--theme notify-me-dark] [--kind investor]
+#   deck.sh new <slug> [--theme midnight] [--kind investor]
 #   deck.sh build <slug>      # PDF + cover thumbnail, from the HTML
 #   deck.sh shots <slug>      # one PNG per slide, for a design review
 #   deck.sh list
@@ -62,7 +62,7 @@ cmd_new() {
   local dir="$DECKS/$slug"
   [ -e "$dir" ] && die "$dir already exists"
 
-  local theme="notify-me-dark" kind="investor" title="$slug" subtitle="" presenter="Sam Eidi" kicker="Notify Me!"
+  local theme="midnight" kind="investor" title="$slug" subtitle="" presenter="Your Name" kicker="Your Company"
   while [ $# -gt 0 ]; do
     case "$1" in
       --theme) theme="$2"; shift 2 ;;
@@ -153,7 +153,7 @@ PY
 
   local pages
   pages="$(grep -c 'section class="slide' "$dir/index.html" || echo 0)"
-  # Record what was built, so the Workbench listing never has to guess.
+  # Record what was built, so a listing never has to guess.
   python3 - "$dir/deck.json" "$pages" <<'PY'
 import json, sys, datetime
 path, pages = sys.argv[1], int(sys.argv[2])

@@ -54,5 +54,4 @@ and not worth building.
 
 The strongest "micro-interaction" in a pitch is not an effect at all: it is a
 real, working product screen embedded in the slide, stepping through its own
-states. The Nosto keynote in `nm-website` does this and it is worth reading
-before building anything similar.
+states.

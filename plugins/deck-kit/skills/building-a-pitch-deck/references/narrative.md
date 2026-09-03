@@ -37,9 +37,9 @@ used. Ten sections, in this order:
 
 **Two things it does not have, which most templates add.** There is no separate
 product section, product lives inside solution. And there is no ask slide:
-Sequoia's list ends on vision. Sam's decks still end on the ask, because a
-meeting with no requested decision wastes the room, but know that this is an
-addition rather than the canon.
+Sequoia's list ends on vision. Ending on the ask is worth doing anyway,
+because a meeting with no requested decision wastes the room, but know that it
+is an addition rather than the canon.
 
 **Why now is the slide most decks skip and the one that most often decides the
 meeting.** It is the argument that this is possible today and was not two years

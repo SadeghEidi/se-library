@@ -47,11 +47,15 @@ true of only your deck goes in its own `deck.css`.
 
 ## Themes
 
-`notify-me-dark` (the default), `notify-me-light` for a deck that will mostly
-be read as a PDF, and `neutral` for anything that is not Notify Me. A theme
-sets custom properties and nothing else. To point the kit at another brand,
-copy `neutral.css`, change `--accent` and the two font stacks, and leave the
+`midnight` (the default), `daylight` for a deck that will mostly be read as a
+PDF, and `neutral` for a deck carrying no brand at all. A theme sets custom
+properties and nothing else. To point the kit at your own brand, copy a theme
+file, change `--accent`, the ink ramp and the two font stacks, and leave the
 rest of the kit alone.
+
+`midnight` and `daylight` carry a real product's palette and use TT Drugs for
+display: read `NOTICE.md` before using them commercially. `neutral` is Inter
+Tight only and is open all the way down.
 
 ## Requirements
 
@@ -72,7 +76,6 @@ absolutely positioned slides; measured 2026-09-03, both `chromium
 size returned two blank pages regardless of deck length. Capturing frames costs
 selectable text and buys an exact match with what the room saw.
 
-## Fonts
+## Licensing
 
-Read `FONTS.md` before this repository is made public or sent outside the
-company. TT Drugs is commercial.
+The code is MIT. The bundled fonts are not all MIT: see `NOTICE.md`.

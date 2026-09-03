@@ -48,8 +48,8 @@ These were all one step smaller until 2026-09-03. On a 1080 canvas the smaller
 scale read as timid: a slide is seen from ten feet away and then again as a
 thumbnail, and both readings want more weight than a screen layout does.
 
-**Two typefaces, maximum.** For Notify Me that is TT Drugs (display) and Inter
-Tight (everything else), which is what the brand already does. TT Drugs ships no
+**Two typefaces, maximum.** Here that is TT Drugs (display) and Inter Tight
+(everything else). TT Drugs ships no
 500 weight: asking for 500 in display type silently renders Regular and the
 emphasis vanishes, so display emphasis is 700 and body emphasis is 500.
 
@@ -72,13 +72,13 @@ A theme sets tokens, and a slide only ever refers to the tokens.
 you lose about a third of your contrast, which is why the light theme is the
 default for anything you do not control.
 
-**Light or dark:** dark is the default, at Sam's instruction 2026-09-03. Light
-is the one to reach for when a deck will mostly be read as a PDF on a laptop
+**Light or dark:** `midnight` is the default. `daylight` is the one to reach
+for when a deck will mostly be read as a PDF on a laptop
 rather than presented, because a full-bleed near-black page prints as a heavy
 slab and is hard to read on a phone in daylight. Say which one a deck is using
 and why when there is a real choice to make.
 
-**Any ambient background layer must be static.** The dark theme's glow was a
+**Any ambient background layer must be static.** The midnight theme's glow was a
 drifting 22-second loop until 2026-09-03. Because that layer is fixed behind
 all the slides rather than owned by one, every slide caught the animation at a
 different phase, and the deck read as twelve different backgrounds. It also

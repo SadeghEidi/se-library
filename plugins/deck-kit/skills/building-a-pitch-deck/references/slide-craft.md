@@ -49,8 +49,8 @@ the one row that is the point. Whitespace does the aligning.
 ## Every number carries its definition and its source
 
 On the slide, in the `.source` line: what the figure counts, which table or
-system it came from, and over what dates. This is Sam's standing rule for
-findings and it does not relax because the finding is on a slide. A number
+system it came from, and over what dates. That rule does not relax because the
+finding is on a slide. A number
 without a definition is a number the room has to take on trust, and the first
 person to ask "what is in that?" derails the meeting.
 

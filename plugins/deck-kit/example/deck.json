@@ -3,12 +3,12 @@
   "subtitle": "Every layout in the kit, on one canvas.",
   "kind": "reference",
   "audience": "reference",
-  "theme": "notify-me-dark",
-  "status": "draft",
+  "theme": "midnight",
+  "status": "final",
   "created": "2026-09-03",
   "presented": null,
   "outcome": null,
   "notes": "The worked example. Every layout, with a comment in the source saying when to use it. Copy from here rather than inventing markup.",
   "slides": 12,
-  "built": "2026-09-03T17:02:32+00:00"
+  "built": "2026-09-03T17:35:43+00:00"
 }

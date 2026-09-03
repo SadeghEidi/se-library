@@ -1,19 +1,19 @@
 /* ============================================================
-   THEME · Notify Me!  dark
+   THEME · midnight
    ------------------------------------------------------------
-   The keynote theme. Use it for a stage, a partner day, a launch,
+   The default, and the keynote theme. Use it for a stage, a partner day, a launch,
    anything presented in a controlled room where you own the
    projector. Do not use it for a deck that will mostly be read as
    a PDF on a laptop: a full-bleed near-black page prints as a
    heavy slab and is unreadable on a phone in daylight. That is
-   what notify-me-light.css is for.
+   what daylight.css is for.
 
-   Colour comes from the Notify Me site design system
-   (~/projects/notify-me/nm-website/DESIGN-SYSTEM.md): --blue
-   #003BAF is the brand primary, and #2D6BFF / #4C87FF are the
-   bright cuts that survive on a dark ground. Type is TT Drugs for
-   display and Inter Tight for everything else, which is the
-   two-family rule the brand already follows.
+   The palette comes from a real product design system rather than
+   being invented for this kit: #003BAF is the primary, and
+   #2D6BFF / #4C87FF are the brighter cuts that survive on a dark
+   ground, because a mid-blue that reads well on white goes muddy
+   on near-black. Type is TT Drugs for display and Inter Tight for
+   everything else: two families, which is the limit.
    ============================================================ */
 
 @font-face { font-family: 'TT Drugs'; src: url('../../fonts/TTDrugs-Thin.otf') format('opentype');    font-weight: 100; font-display: block; }

@@ -5,7 +5,7 @@
     "url": "https://github.com/SadeghEidi"
   },
   "metadata": {
-    "description": "SE Library: Sam Eidi's Claude Code plugins. Tools and judgement he uses on his own work, packaged so a colleague can install them in two commands.",
+    "description": "SE Library: Claude Code plugins for real work. Tools and the judgement to use them, packaged so they install in two commands.",
     "version": "2026.09.03"
   },
   "plugins": [
