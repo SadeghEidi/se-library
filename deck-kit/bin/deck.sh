@@ -8,7 +8,10 @@
 #   deck.sh list
 #   deck.sh serve             # http://127.0.0.1:8291 over the registry
 #
-# Every deck is a folder under ~/.openclaw/workspace/decks/ holding
+# Set DECKS_DIR to keep decks somewhere else, DECK_KIT to point at a
+# different copy of the engine, CHROME_BIN to choose the browser.
+#
+# Every deck is a folder under ./decks/ holding
 # index.html, deck.css, deck.json and assets/. The built PDF and the
 # thumbnail land beside them in dist/. Nothing here needs npm: the
 # whole toolchain is chromium, which is already on the box.
@@ -16,8 +19,12 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DECKS="${DECKS_DIR:-$HERE/decks}"
-KIT="$DECKS/_kit"
+# The kit travels with the plugin. The decks belong to the project you
+# are standing in, so they default to ./decks rather than to a path
+# inside the install.
+KIT="${DECK_KIT:-$HERE/kit}"
+DECKS="${DECKS_DIR:-$PWD/decks}"
+mkdir -p "$DECKS"
 find_chrome() {
   local c
   for c in "${CHROME_BIN:-}" \
@@ -69,15 +76,28 @@ cmd_new() {
   done
   [ -f "$KIT/css/themes/$theme.css" ] || die "no theme '$theme'. have: $(ls "$KIT/css/themes" | sed 's/.css//' | tr '\n' ' ')"
 
+  # Self-contained decks: copy the engine in beside them the first time.
+  case "$KIT" in
+    "$DECKS"/*) ;;
+    *) [ -d "$DECKS/_kit" ] || { cp -r "$KIT" "$DECKS/_kit"; echo "installed the kit into $DECKS/_kit"; }
+       KIT="$DECKS/_kit" ;;
+  esac
+
   cp -r "$KIT/template" "$dir"
   local date; date="$(date +%Y-%m-%d)"
   local footer; footer="$kicker · $date"
+  # The stylesheet links are written relative to where the deck actually
+  # lands, rather than assuming the kit is one directory up. That is what
+  # lets the same kit serve decks in this repo, decks somewhere else on
+  # disk, and decks made by the Claude Code plugin, with no copies.
+  local kitrel; kitrel="$(python3 -c 'import os,sys; print(os.path.relpath(sys.argv[1], sys.argv[2]))' "$KIT" "$dir")"
 
   # A deck is a text file until it is presented, so substitution is
   # sed rather than a template engine on purpose: one less thing that
   # can be broken by a dependency upgrade three months from now.
   for f in "$dir/index.html" "$dir/deck.json"; do
     sed -i \
+      -e "s|{{KIT}}|$kitrel|g" \
       -e "s|{{TITLE}}|$title|g" \
       -e "s|{{SUBTITLE}}|$subtitle|g" \
       -e "s|{{THEME}}|$theme|g" \

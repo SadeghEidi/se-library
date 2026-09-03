@@ -8,10 +8,10 @@
 <!-- Order matters: reset, reveal, kit (structure), theme (colour).
      The theme is last so a deck can override a token without touching
      the kit. Swap the theme href to change the whole deck's skin. -->
-<link rel="stylesheet" href="../_kit/vendor/reset.css">
-<link rel="stylesheet" href="../_kit/vendor/reveal.css">
-<link rel="stylesheet" href="../_kit/css/kit.css">
-<link rel="stylesheet" href="../_kit/css/themes/{{THEME}}.css">
+<link rel="stylesheet" href="{{KIT}}/vendor/reset.css">
+<link rel="stylesheet" href="{{KIT}}/vendor/reveal.css">
+<link rel="stylesheet" href="{{KIT}}/css/kit.css">
+<link rel="stylesheet" href="{{KIT}}/css/themes/{{THEME}}.css">
 <link rel="stylesheet" href="deck.css">
 </head>
 
@@ -299,7 +299,7 @@
   </div>
 </div>
 
-<script src="../_kit/vendor/reveal.js"></script>
-<script src="../_kit/js/deck.js"></script>
+<script src="{{KIT}}/vendor/reveal.js"></script>
+<script src="{{KIT}}/js/deck.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # Fonts, and the one thing to check before sharing this
 
-Two families ship in `decks/_kit/fonts/`.
+Two families ship in `deck-kit/kit/fonts/`.
 
 **Inter Tight** is licensed under the SIL Open Font License. It can be
 redistributed, bundled, and published without restriction, including in a
@@ -17,7 +17,7 @@ So:
 - **Private repository, internal colleagues:** fine as it stands. They are
   working under the same licence you already hold.
 - **Public repository, or anyone outside the company:** delete
-  `decks/_kit/fonts/TTDrugs-*.otf`, and either point `--font-display` at Inter
+  `deck-kit/kit/fonts/TTDrugs-*.otf`, and either point `--font-display` at Inter
   Tight (which the `neutral` theme already does) or leave the `@font-face`
   rules in place with a line in the README telling a licensed user where to
   drop their own copies.

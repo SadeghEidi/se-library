@@ -1,0 +1,20 @@
+{
+  "name": "deck-kit",
+  "owner": {
+    "name": "Sam Eidi",
+    "url": "https://github.com/SadeghEidi"
+  },
+  "metadata": {
+    "description": "A pitch deck system for Claude Code: brand-exact HTML decks from one shared kit, a PDF export, and the judgement that makes a deck land.",
+    "version": "2026.09.03"
+  },
+  "plugins": [
+    {
+      "name": "deck-kit",
+      "source": "./deck-kit",
+      "description": "Build a pitch deck as code. One shared kit (reveal.js, a layout and motion stylesheet, three themes), a tool that scaffolds, screenshots and exports a PDF, and a skill carrying the narrative frameworks, the visual system and the pre-send checklist. Decks come out brand-exact, reviewable in git, and identical on a laptop, a 4K monitor and a boardroom projector.",
+      "version": "2026.09.03",
+      "category": "writing"
+    }
+  ]
+}

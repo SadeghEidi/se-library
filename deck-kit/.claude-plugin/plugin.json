@@ -1,0 +1,9 @@
+{
+  "name": "deck-kit",
+  "description": "Build a pitch deck as code. One shared kit (reveal.js, a layout and motion stylesheet, three themes), a tool that scaffolds, screenshots and exports a PDF, and a skill carrying which narrative fits which room, what makes a slide read as expensive, and the pass to run before sending anything.",
+  "version": "2026.09.03",
+  "author": {
+    "name": "Sam Eidi",
+    "url": "https://github.com/SadeghEidi"
+  }
+}

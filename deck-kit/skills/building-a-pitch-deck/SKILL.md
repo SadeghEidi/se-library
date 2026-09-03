@@ -8,9 +8,10 @@ description: "Build, review or rebuild a pitch deck, keynote, investor, sales, p
 Sam's decks are built as code, in this repo, from one kit. Not in Google
 Slides, not in Gamma, not as a one-off HTML file that never gets found again.
 
-The kit is `decks/_kit/` and the tool is `bin/deck.sh`, both at the root of
-this repository. On Sam's own machine every deck also surfaces on the Decks
-page in Sam Workbench; in a clone, `bin/deck.sh list` is the listing.
+The kit and the tool both travel with this plugin. Run the tool as
+`${CLAUDE_PLUGIN_ROOT}/bin/deck.sh`, from whatever project the deck belongs
+to; decks land in `./decks/` there. On Sam's own machine they also surface
+on the Decks page in Sam Workbench.
 
 ## Before anything: is a deck the right artifact
 
@@ -37,7 +38,7 @@ that saves the most time and gets skipped the most.
 **2. Scaffold.**
 
 ```bash
-bin/deck.sh new <slug> --kind investor \
+deck.sh new <slug> --kind investor \
   --title "Title" --subtitle "One line" --presenter "Sam Eidi"
 ```
 
@@ -47,7 +48,7 @@ laptop, and `neutral` for anything that is not Notify Me. Kinds: investor,
 sales, partner, board, internal, conference.
 
 **3. Build the slides.** Edit `decks/<slug>/index.html`. Every layout you need
-is already in `decks/deck-kit-reference/index.html` with a comment saying when
+is already in `decks/example/index.html` with a comment saying when
 to use it, so copy from there rather than inventing markup. The rules that
 matter are in `references/slide-craft.md` and `references/visual-system.md`.
 Anything true of only this deck goes in its own `deck.css`; anything reusable
@@ -56,7 +57,7 @@ goes in the kit.
 **4. Look at it, every time.**
 
 ```bash
-bin/deck.sh shots <slug>     # one PNG per slide into dist/shots/
+deck.sh shots <slug>     # one PNG per slide into dist/shots/
 ```
 
 Then actually read the images. A deck is judged by looking at it, and a slide
@@ -66,7 +67,7 @@ obvious in a screenshot. Review against `references/checklist.md`.
 **5. Build and file.**
 
 ```bash
-bin/deck.sh build <slug>     # PDF + cover, updates deck.json
+deck.sh build <slug>     # PDF + cover, updates deck.json
 ```
 
 Then set `status` in `decks/<slug>/deck.json` (`draft`, `review`, `final`,
@@ -135,12 +136,12 @@ theme in this kit is derived from it. Read it before a stage deck.
 
 | Thing | Path |
 |---|---|
-| The kit (CSS, runtime, fonts, template) | `decks/_kit/` |
-| Every layout, worked, with comments | `decks/deck-kit-reference/index.html` |
+| The kit (CSS, runtime, fonts, template) | `${CLAUDE_PLUGIN_ROOT}/kit/` |
+| Every layout, worked, with comments | `decks/example/index.html` |
 | One deck | `decks/<slug>/` |
 | Built PDF, cover, per-slide PNGs | `decks/<slug>/dist/` |
-| The tool | `bin/deck.sh` |
-| The listing | `bin/deck.sh list` |
+| The tool | `${CLAUDE_PLUGIN_ROOT}/bin/deck.sh` |
+| The listing | `deck.sh list` |
 
 ## Known and accepted
 
